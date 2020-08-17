@@ -6,7 +6,7 @@ import { FetchData } from './components/FetchData';
 import { Counter } from './components/Counter';
 
 import './custom.css'
-import { Questionnaire } from './components/Questionaire';
+import { Questionnaire } from './components/Questionnaire';
 
 export default class App extends Component {
   static displayName = App.name;
@@ -17,7 +17,7 @@ export default class App extends Component {
         <Route exact path='/' component={Home} />
         <Route path='/counter' component={Counter} />
             <Route path='/fetch-data' component={FetchData} />
-            <Route path="/form" component={Questionnaire} />
+            <Route path='/form' component={Questionnaire} />
       </Layout>
     );
   }

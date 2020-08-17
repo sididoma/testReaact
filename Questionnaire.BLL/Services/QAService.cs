@@ -31,13 +31,14 @@ namespace Questionnaire.BLL.Services
         {
             var dbSet = _questionRepo.GetQuestions();
 
-            var result = dbSet.Select(s => new QuestionDTO
+            var result = dbSet.Select(select => new QuestionDTO
             {
-                Type = s.AnswerType.Type,
-                TypeId = s.AnswerTypeId,
-                QuestionId = s.Id,
-                Question = s.QuestionDescription,
-                EnumDescriptions = s.AnswerType.Type == "string" ? s.AnswerType.EnumDescription.Split(_separator, StringSplitOptions.None) : null
+                Type = select.AnswerType.Type,
+                TypeId = select.AnswerTypeId,
+                QuestionId = select.Id,
+                Question = select.QuestionDescription,
+                EnumDescriptions = select.AnswerType.Type == "enum" ? select.AnswerType.EnumDescription.Split(_separator, StringSplitOptions.None) : null,
+                Answer = string.Empty
             }).ToList();
 
             return result;
