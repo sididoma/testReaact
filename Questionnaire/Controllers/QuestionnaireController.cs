@@ -20,6 +20,10 @@ namespace Questionnaire.Controllers
             _service = service;
         }
 
+        /// <summary>
+        /// Метод для получения списка вопрос для заполнения анкеты.
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(typeof(BaseResponse<IEnumerable<QuestionDTO>>), StatusCodes.Status200OK)]
         [ProducesErrorResponseType(typeof(BaseResponse<string>))]
@@ -48,6 +52,11 @@ namespace Questionnaire.Controllers
         }
 
 
+        /// <summary>
+        /// Сохранение заполненной анкеты.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("SaveAnswers")]
         [ProducesErrorResponseType(typeof(BaseResponse<string>))]
         [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status200OK)]

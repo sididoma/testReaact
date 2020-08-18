@@ -25,6 +25,10 @@ namespace Questionnaire.BLL.Services
             _aRepo = aRepo;
         }
 
+        /// <summary>
+        /// Получение списка вопросов с БД, с последующим приведеним к необходимому виду.
+        /// </summary>
+        /// <returns></returns>
         public List<QuestionDTO> GetQuestions()
         {
             var dbSet = _questionRepo.GetQuestions();
@@ -42,6 +46,15 @@ namespace Questionnaire.BLL.Services
             return result;
         }
 
+
+        /// <summary>
+        /// Сохранение  ответов пользователя в БД:
+        /// 1) Первыи делом в БД создается юзер.
+        /// 2) Создается лист ответов с идентификатором ранее созданного юзера
+        /// 3) Созданный лист ответов записывается в базу.
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public bool SaveAnswers(List<QuestionDTO> request)
         {
             var user = new User() { CreateDateTime = DateTime.Now };
