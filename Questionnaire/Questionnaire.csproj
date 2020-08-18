@@ -28,10 +28,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Questionnaire.BLL\Questionnaire.BLL.csproj" />
     <ProjectReference Include="..\Questionnaire.DAL\Questionnaire.DAL.csproj" />
   </ItemGroup>

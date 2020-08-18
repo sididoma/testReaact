@@ -1,0 +1,35 @@
+﻿.btns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 10px;
+}
+
+.inputCheckbox {
+    border-color: #0b76ef;
+    background-color: #0b76ef;
+    width: 30px;
+    height: 30px;
+    border-radius: 5px;
+}
+
+.nextBtn:hover, .backBtn:hover {
+    color: blue;
+}
+
+.qdiv {
+    display: flex;
+    align-items: center;
+}
+
+.qform {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+}
+
+.inputTag {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

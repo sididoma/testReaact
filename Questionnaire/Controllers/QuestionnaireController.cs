@@ -1,16 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Questionnaire.BLL.DTOs;
 using Questionnaire.BLL.Interfaces;
+using Questionnaire.Models;
 
 namespace Questionnaire.Controllers
 {
     [ApiController]
     [Route("[controller]")]
+    [Produces("application/json")]
     public class QuestionnaireController : ControllerBase
     {
         private readonly IQAService _service;
@@ -21,20 +21,58 @@ namespace Questionnaire.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<QuestionDTO> Get()
+        [ProducesResponseType(typeof(BaseResponse<IEnumerable<QuestionDTO>>), StatusCodes.Status200OK)]
+        [ProducesErrorResponseType(typeof(BaseResponse<string>))]
+        public IActionResult Get()
         {
-            var result = _service.GetQuestions();
+            try
+            {
+                var result = _service.GetQuestions();
 
-            return result;
+                return Ok(new BaseResponse<IEnumerable<QuestionDTO>>()
+                {
+                    Code = 0,
+                    Message = "Ok",
+                    Data = result
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new BaseResponse<string>()
+                {
+                    Code = -1,
+                    Message = $"Ошибка при получении списка вопросов",
+                    Data = ex.Message
+                });
+            }
         }
 
 
         [HttpPost("SaveAnswers")]
+        [ProducesErrorResponseType(typeof(BaseResponse<string>))]
+        [ProducesResponseType(typeof(BaseResponse<string>), StatusCodes.Status200OK)]
         public IActionResult SaveAnswers([FromBody]List<QuestionDTO> model)
         {
-            var res = _service.SaveAnswers(model);
+            try
+            {
+                var res = _service.SaveAnswers(model);
 
-            return Ok(res);
+                return Ok(new BaseResponse<string>()
+                {
+                    Data = res.ToString(),
+                    Code = 0,
+                    Message = "Ok"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new BaseResponse<string>
+                {
+                    Code = -2,
+                    Message = "Ошибка при сохранении ответов",
+                    Data = ex.Message
+                });
+            }
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import './Questionnaire.css'
+
 export class Questionnaire extends Component {
 
     constructor(props) {
@@ -23,7 +24,17 @@ export class Questionnaire extends Component {
 
     async fetchQuestions() {
         const response = await fetch('Questionnaire');
-        const data = await response.json();
+        let data = await response.json();
+        data = data.data;
+        data = data.map(function (val) {
+            if (val.type == 'enum') {
+                val.answer = val.enumDescriptions[0];
+            }
+            if (val.type == 'bool') {
+                val.answer = 'false';
+            }
+            return val;
+        })
         this.setState({
             questions: data,
             loading: false,
@@ -72,7 +83,7 @@ export class Questionnaire extends Component {
                         const error = (data && data.message) || response.status;
                         return Promise.reject(error);
                     }
-                    alert('success');
+                    alert('Анкета успешно сохранена');
                     window.location.href = '/';
                 })
                 .catch(error => {
@@ -88,7 +99,12 @@ export class Questionnaire extends Component {
     }
     handleChange(event) {
         let quests = this.state.questions
-        quests[this.state.current].answer = String(event.target.value);
+        if (quests[this.state.current].type == 'bool') {
+            quests[this.state.current].answer = String(event.target.checked);
+        } else {
+            quests[this.state.current].answer = String(event.target.value);
+        }
+
         this.setState({
             questions: quests,
         })
@@ -96,13 +112,19 @@ export class Questionnaire extends Component {
 }
 
 class QForm extends Component {
+    constructor(props) {
+        super(props);
+    }
+
     render() {
         return (
-            <div>
-                <form>
+            <div className='qdiv'>
+                <form className='qform'>
                     <QuestionInput type={this.props.inputType} value={this.props.inputValue} enums={this.props.enums} tagName={this.props.tagName} handlechange={this.props.changehandler}></QuestionInput>
-                    <input type='button' disabled={this.props.isFirst} onClick={this.props.prevQuestion} value='Назад'></input>
-                    <input type='button' onClick={this.props.nextQuestion} value={this.props.isLast ? "Закончить" : "Следующий вопрос"}></input>
+                    <div className='btns'>
+                        <input className='backBtn' type='button' disabled={this.props.isFirst} onClick={this.props.prevQuestion} value='Назад'></input>
+                        <input className='nextBtn' type='button' onClick={this.props.nextQuestion} value={this.props.isLast ? "Закончить" : "Следующий вопрос"}></input>
+                    </div>
                 </form>
             </div>
         )
@@ -127,7 +149,7 @@ function QuestionInput(props) {
 }
 
 function NumberInput(props) {
-    return (<div>
+    return (<div className='inputTag'>
         {props.tagName}
         <input type='number' value={props.value} onChange={props.handlechange}></input>
     </div>
@@ -135,21 +157,21 @@ function NumberInput(props) {
 }
 function StringInput(props) {
     console.log(props.state)
-    return (<div>
+    return (<div className='inputTag'>
         {props.tagName}
         <input type='text' value={props.value} onChange={props.handlechange}></input>
     </div>
     );
 }
 function DateInput(props) {
-    return (<div>
+    return (<div className='inputTag'>
         {props.tagName}
         <input type='date' value={props.value} onChange={props.handlechange}></input>
     </div>
     );
 }
 function SelectListInput(props) {
-    return (<div>
+    return (<div className='inputTag'>
         {props.tagName}
         <select value={props.value} onChange={props.handlechange}>
             {props.data.map(curr =>
@@ -158,8 +180,8 @@ function SelectListInput(props) {
     </div>)
 }
 function CheckBoxInput(props) {
-    return (<div>
+    return (<div className='inputTag'>
         {props.tagName}
-        <input type='checkbox' value={props.value} onChange={props.handlechange}></input>
+        <input type='checkbox' className='inputCheckbox' value={props.value} onChange={props.handlechange}></input>
     </div>)
 }

@@ -1,13 +1,8 @@
-﻿using Common.DTOs;
-using Microsoft.EntityFrameworkCore;
-using Questionnaire.Data.Domain;
+﻿using Questionnaire.Data.Domain;
 using Questionnaire.Data.Entities;
 using Questionnaire.Data.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Questionnaire.Data.Repositories
 {
@@ -21,74 +16,41 @@ namespace Questionnaire.Data.Repositories
 
         public bool AddRange(List<T> models)
         {
-            try
-            {
-                _context.Set<T>().AddRange(models);
-                _context.SaveChanges();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+            _context.Set<T>().AddRange(models);
+            _context.SaveChanges();
+            return true;
         }
 
-        public BaseResult<T> CreateOrUpdate(T model)
+        public T CreateOrUpdate(T model)
         {
-            try
+            if (model.Id != 0)
             {
-                if (model.Id != 0)
-                {
-                    _context.Set<T>().Update(model);
-                }
-                else
-                {
-                    _context.Set<T>().Add(model);
-                }
-
-                _context.SaveChanges();
-
-                return new BaseResult<T>() { IsOkay = true, Result = model };
+                _context.Set<T>().Update(model);
             }
-            catch (Exception ex)
+            else
             {
-                return new BaseResult<T>() { ErrorMessage = ex.Message, IsOkay = false, Result = null };
+                _context.Set<T>().Add(model);
             }
+
+            _context.SaveChanges();
+
+            return model;
         }
 
-        public BaseResult<string> Delete(T model)
+        public bool Delete(T model)
         {
-            try
-            {
-                _context.Set<T>().Remove(model);
+            _context.Set<T>().Remove(model);
 
-                _context.SaveChanges();
+            _context.SaveChanges();
 
-                return new BaseResult<string>() { ErrorMessage = "ok", IsOkay = true };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResult<string> { ErrorMessage = ex.Message, IsOkay = false, Result = "Ошибка при удалении записи" };
-            }
+            return true;
         }
 
-        public BaseResult<T> GetValue(int id)
+        public IQueryable<T> ToList()
         {
-            throw new NotImplementedException();
-        }
+            var result = _context.Set<T>().AsQueryable();
 
-        public BaseResult<IQueryable<T>> ToList()
-        {
-            try
-            {
-                var result = _context.Set<T>().AsQueryable();
-
-                return new BaseResult<IQueryable<T>>() { IsOkay = true, Result = result };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResult<IQueryable<T>>() { IsOkay = false, ErrorMessage = ex.Message };
-            }
+            return result;
         }
     }
 }

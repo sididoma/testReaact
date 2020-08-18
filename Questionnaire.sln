@@ -5,11 +5,9 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questionnaire", "Questionnaire\Questionnaire.csproj", "{ADB4DD38-D1F3-422F-B457-B34FA593CB13}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{A66175F6-A471-4BA7-BEF1-C0926C48F302}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questionnaire.DAL", "Questionnaire.DAL\Questionnaire.DAL.csproj", "{00874C93-264D-452F-BB26-872EB0200B51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questionnaire.DAL", "Questionnaire.DAL\Questionnaire.DAL.csproj", "{00874C93-264D-452F-BB26-872EB0200B51}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Questionnaire.BLL", "Questionnaire.BLL\Questionnaire.BLL.csproj", "{1BBF5846-D10C-4127-8A98-A873CD0F8A87}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Questionnaire.BLL", "Questionnaire.BLL\Questionnaire.BLL.csproj", "{1BBF5846-D10C-4127-8A98-A873CD0F8A87}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,10 +19,6 @@ Global
 		{ADB4DD38-D1F3-422F-B457-B34FA593CB13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ADB4DD38-D1F3-422F-B457-B34FA593CB13}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ADB4DD38-D1F3-422F-B457-B34FA593CB13}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A66175F6-A471-4BA7-BEF1-C0926C48F302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A66175F6-A471-4BA7-BEF1-C0926C48F302}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A66175F6-A471-4BA7-BEF1-C0926C48F302}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A66175F6-A471-4BA7-BEF1-C0926C48F302}.Release|Any CPU.Build.0 = Release|Any CPU
 		{00874C93-264D-452F-BB26-872EB0200B51}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{00874C93-264D-452F-BB26-872EB0200B51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00874C93-264D-452F-BB26-872EB0200B51}.Release|Any CPU.ActiveCfg = Release|Any CPU

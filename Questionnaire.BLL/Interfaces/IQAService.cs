@@ -1,7 +1,5 @@
 ﻿using Questionnaire.BLL.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Questionnaire.BLL.Interfaces
 {

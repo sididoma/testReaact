@@ -1,5 +1,4 @@
-﻿using Common.DTOs;
-using Questionnaire.BLL.DTOs;
+﻿using Questionnaire.BLL.DTOs;
 using Questionnaire.BLL.Interfaces;
 using Questionnaire.DAL.Interfaces;
 using Questionnaire.Data.Entities;
@@ -7,7 +6,6 @@ using Questionnaire.Data.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Questionnaire.BLL.Services
 {
@@ -49,15 +47,10 @@ namespace Questionnaire.BLL.Services
             var user = new User() { CreateDateTime = DateTime.Now };
             var saveUserRes = _userRepo.CreateOrUpdate(user);
 
-            if (!saveUserRes.IsOkay)
-                return false;
-
-
-
             var answers = request.Select(s => new Answer()
             {
                 QuestionId = s.QuestionId,
-                UserId = saveUserRes.Result.Id,
+                UserId = saveUserRes.Id,
                 AnswerDesc = s.Answer
             }).ToList();
 
